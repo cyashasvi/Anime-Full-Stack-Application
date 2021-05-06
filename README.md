@@ -1,25 +1,35 @@
 # Anime-Full-Stack-Application
 
-1. User can create an account with authentication/session using cookies
-2. User can view/search the database for anime media
-3. User can add to their profile anything what they have watched
-4. User can rate anime media
-5. Questionnaire to determine genre affinity to generate anime media suggestions
-6. Features: 
-      1. where to watch
-      2. chat
-      3. lists based on user rating
+Functionality
 
+1. Create a server
+2. Create Database Schema -> one database for the anime, and another database for authentication(users)
+3. Create the Seeds.js
+4. Models for the User, Animes
+5. Routes for views
+6. Handlebars for views
+7. Database search routes
+8. Creating the Form for the login
+9. Creating the Home Page
+10. Logic for recommendation for animes
+11. Creating the questionnaire for anime watchers and non watchers **_ IMPORTANT _**
+12. MVC for project --- file structure
+13. Create authentication using sequelize and using cookies to run sessions
+14. User Page for Login
 
-Application:
+Features
 
-1. Main page
-2. Quiz for new users to find out genre interests
-    quiz quetions(multiple choice):
-    1. genre preference
-    2. type of media: tv series/ movie/ both
-    3. new gen/ old gen/ doesnt matter (with examples)
+1. GraphQL API -> basic fetch for pulling images into Database => do research .
+2. Generates Daily Anime Recommendation
+3. Surprise me function -> gives random anime to watch
+4. User comments and list from API to show ratings
 
-3. User Account creation
-4. User can skip quiz if they already have an account
-5. login with password authentication
+User can create an account with authentication/session using cookies
+User can view/search the database for anime media
+User can add to their profile anything what they have watched
+User can rate anime media
+Questionnaire to determine genre affinity to generate anime media suggestions
+Features:
+where to watch
+chat
+lists based on user rating
