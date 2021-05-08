@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+  <title>homepage</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="../public/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../public/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+</head>
+<body>
+  <nav class="black lighten-1" role="navigation">
+    <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Anime Recommender</a>
+        {{#if loggedIn}}
+      <ul class="right hide-on-med-and-down">
+        <li><a class="waves-effect grey btn-large" id="logout">Logout</a></li>
+        <li><a class="waves-effect grey btn-large" id="profile">View Profile</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a class="waves-effect grey btn-large" id="logout">Logout</a></li>
+        <li><a class="waves-effect grey btn-large" id="profile">View Profile</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+
+    {{else}}
+    <a href="/login">Login</a>
+    {{/if}}
+  </nav>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center black-text">Anime of the Week</h1>
+      <div class="random">
+        <h5 class="header col s12 light">Name of anime w/ image</h5>
+        {{body}}
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+
+  <div class="row">
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">add_box</i></h2>
+            <h5 class="center">Add Anime's to your profile</h5>
+
+            <p class="light">Add any anime's you have previously watched into your personal profile.</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center black-text"><i class="material-icons">looks_5</i></h2>
+            <h5 class="center">Give a Rating</h5>
+
+            <p class="light">Give a score for the animes in your user profile to help us recommend similar titles</p>
+          </div>
+        </div>
+
+        <div class="col s12 m4">
+          <div class="icon-block">
+            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
+            <h5 class="center">Watch and Review</h5>
+
+            <p class="light">Watch the recommended animes and leave a review to help out fellow users in finding their next favorite anime</p>
+          </div>
+        </div>
+      </div>
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="../public/js/materialize.js"></script>
+  <script src="../public/js/init.js"></script>
+  {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
+</body>
+
+</html>
