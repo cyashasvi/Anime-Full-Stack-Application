@@ -12,7 +12,7 @@
 </head>
 
 <body class="flex justify-center">
-    <div class="quiz-box flex justify-center w-96 border-2 border-gray-200 flex-col p-10 m-16 rounded">
+    <div id="quiz-box" class="quiz-box flex justify-center w-96 border-2 border-gray-200 flex-col p-10 m-16 rounded">
         <div id="question-container" class="question bg-blue-400 text-white rounded p-2">
             <p>Test question</p>
         </div>
@@ -21,7 +21,7 @@
             </ul>
         </div>
         <div class="next">
-            <button class="p-2 rounded text-white bg-blue-400 w-24" id="nextBtn" type="button" onclick="next()">Next</button>
+            <button class="p-2 rounded text-white bg-blue-400 w-24" id="nextBtn" type="button" onclick="submitTest()">Next</button>
         </div>
     </div>
     <script src="quiz.js"></script>
