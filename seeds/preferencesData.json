@@ -1,0 +1,16 @@
+[{
+        "id": 1,
+        "preferredGenre": "Shounen, Action, Drama",
+        "genre_id": 1
+    },
+    {
+        "id": 2,
+        "preferredGenre": "Shoujo, Romance",
+        "genre_id": 2
+    },
+    {
+        "id": 3,
+        "preferredGenre": "Shounen, Horror",
+        "genre_id": 3
+    }
+]
