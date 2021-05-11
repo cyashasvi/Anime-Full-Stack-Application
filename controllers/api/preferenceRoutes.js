@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const {Preferences} = require('../../models');
+const { Preferences } = require('../../models');
 
-router.get('/preferences/:id', async (req, res) => {
+router.get('/preferences/:id', async(req, res) => {
     // try {
     //      const prefData = await Preferences.findByPk(req.params.id, {
     //          include: [
@@ -28,3 +28,4 @@ router.get('/preferences/:id', async (req, res) => {
 });
 
 
+module.exports = router;
