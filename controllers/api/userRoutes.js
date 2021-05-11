@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const {User} = require('../../models');
+const { User } = require('../../models');
 
-router.get('/user/:id', async (req, res) => {
+router.get('/user/:id', async(req, res) => {
     // try {
     //     const userData = await User.findByPk(req.params.id, {})
     // }
@@ -9,11 +9,9 @@ router.get('/user/:id', async (req, res) => {
 
     req.session.save(() => {
         if (req.session.countVisit) {
-            req.session.countVisit ++;
+            req.session.countVisit++;
         } else {
             req.session.countVisit = 1;
         }
     })
 });
-
-
