@@ -7,8 +7,12 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
   <link href="../public/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="../public/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="../public/css/quiz.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="../public/css/styles.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
 </head>
 <body>
   <nav class="black lighten-1" role="navigation">
@@ -71,6 +75,19 @@
           </div>
         </div>
       </div>
+      <div id="quiz-box" class="quiz-box flex justify-center w-96 border-2 border-gray-200 flex-col p-10 m-16 rounded">
+        <div id="question-container" class="question bg-blue-400 text-white rounded p-2">
+            <p>Test question</p>
+        </div>
+        <div class="answers border-2 border-gray-200 my-5 h-auto rounded">
+            <ul class="p-2 rounded h-auto" multiple="multiple" id="list">
+            </ul>
+        </div>
+        <div class="next">
+            <button class="p-2 rounded text-white bg-blue-400 w-24" id="nextBtn" type="button" onclick="submitTest()">Next</button>
+        </div>
+    </div>
+  <script src="../quiz.js"></script>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="../public/js/materialize.js"></script>
   <script src="../public/js/init.js"></script>
