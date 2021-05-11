@@ -1,3 +1,3 @@
 const router = require('express').Router();
-const animeRoutes = require('./animeRoutes');
+const preferenceRoutes = require('./preferenceRoutes');
 const userRoutes = require('./userRoutes');
