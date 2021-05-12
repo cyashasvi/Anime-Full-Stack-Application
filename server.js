@@ -1,10 +1,11 @@
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 
 const exphbs = require('express-handlebars');
-// const routes = require('./controllers');
+const routes = require('./controllers');
 
-// const routes = require('./controllers');
+
 
 
 const sequelize = require('./config/connection');
@@ -25,13 +26,16 @@ const sess = {
 };
 
 app.use(session(sess));
+app.use(express.static('public'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('handlebars', exphbs.engine);
+// app.use('handlebars', exphbs.engine);
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-// app.use(routes);
+app.use(routes);
+
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));

@@ -2,14 +2,14 @@ const router = require('express').Router();
 const {Anime} = require('../../models');
 
 // GET all Anime
-router.get('/', async (req, res) => {
-    try {
-        const animeData = await Anime.findAll();
-        res.status(200).json(animeData);
-    } catch (err) {
-        res.status(500).json(err);
-    } 
-});
+// router.get('/', async (req, res) => {
+//     try {
+//         const animeData = await Anime.findAll();
+//         res.status(200).json(animeData);
+//     } catch (err) {
+//         res.status(500).json(err);
+//     } 
+// });
 
 //GET a Single Anime
 router.get('/:id', async (req, res) => {

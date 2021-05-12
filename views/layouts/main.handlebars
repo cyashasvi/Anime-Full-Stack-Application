@@ -7,25 +7,25 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="../../public/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/css/materialize.css"  rel="stylesheet" media="screen,projection"/>
   <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <link href="../../public/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="../../public/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="../../public/css/quiz.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="../../public/css/styles.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="/css/quiz.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="/css/styles.css" type="text/css" rel="stylesheet" media="screen,projection" />
 </head>
 <body>
   <nav class="black lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Anime Recommender</a>
        <ul class="right hide-on-med-and-down">
-        <li><div class="input-field col s3">
+        {{!-- <li><div class="input-field col s3">
           <input id="email" type="email" class="validate">
           <label for="email">Email</label>
-        </div></li>
-        <li><div class="input-field col s3">
+        </div></li> --}}
+        {{!-- <li><div class="input-field col s3">
           <input id="password" type="password" class="validate">
           <label for="password">Password</label>
-        </div></li>
+        </div></li> --}}
       </ul>
 
       <ul id="nav-mobile" class="sidenav">
@@ -51,7 +51,7 @@
       <h1 class="header center black-text">Anime of the Week</h1>
       <div class="random">
         <h5 class="header col s12 light">Name of anime w/ image</h5>
-        {{body}}
+        {{{body}}}
       </div>
       <br><br>
 
@@ -87,11 +87,12 @@
         </div>
       </div>
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
-  <script src="../../public/js/quiz.js"></script>
+  <script src="/js/materialize.js"></script>
+  <script src="/js/init.js"></script>
+  <script src="/js/quiz.js"></script>
+  <script src="/js/login.js"></script>
   {{#if loggedIn}}
-  <script src="../../public/js/logout.js"></script>
+  <script src="/js/logout.js"></script>
   {{/if}}
 </body>
 
