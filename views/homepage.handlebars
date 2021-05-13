@@ -3,18 +3,30 @@
         <form class="form signup-form">
           <div class="form-group">
             <label for="username-signup">Username:</label>
-            <input class="form-input" type="text" id="username-signup" />
+            <input class="form-input" type="text" id="username-signup"/>
           </div>
           <div class="form-group">
             <label for="email-signup">Email:</label>
-            <input class="form-input" type="text" id="email-signup" />
+            <input class="form-input" type="text" id="email-signup"/>
           </div>
           <div class="form-group">
             <label for="password-signup">Password:</label>
-            <input class="form-input" type="password" id="password-signup" />
+            <input class="form-input" type="password" id="password-signup"/>
           </div>
           <div class="form-group">
             <button class="btn btn-primary black" id="submit" type="submit">signup</button>
           </div>
         </form>
       </div>
+      <div id="quiz-box" class="quiz-box flex justify-center w-96 border-2 border-gray-200 flex-col p-10 m-16 rounded">
+        <div id="question-container" class="question bg-blue-400 text-white rounded p-2">
+            <p>Test question</p>
+        </div>
+        <div class="answers border-2 border-gray-200 my-5 h-auto rounded">
+            <ul class="p-2 rounded h-auto" multiple="multiple" id="list">
+            </ul>
+        </div>
+        <div class="next">
+            <button class="p-2 rounded text-white bg-blue-400 w-24" id="nextBtn" type="button" onclick="submitTest()">Next</button>
+        </div>
+    </div>
