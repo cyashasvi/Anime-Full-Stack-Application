@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const {User} = require('../../models');
-
+// /api/users/
 router.post('/', async (req, res) => {
+  console.log('HITTING API USERS POST', req);
     try {
       const dbUserData = await User.create({
         username: req.body.username,
@@ -18,19 +19,22 @@ router.post('/', async (req, res) => {
       console.log(err);
       res.status(500).json(err);
     }
+    
   });
 
-router.get('/user/:id', async (req, res) => {
-    // try {
-    //     const userData = await User.findByPk(req.params.id, {})
-    // }
+  // /api/users/7558
+// router.get('/user/:id', async (req, res) => {
+//     // try {
+//     //     const userData = await User.findByPk(req.params.id, {})
+//     // }
 
 
-    req.session.save(() => {
-        if (req.session.countVisit) {
-            req.session.countVisit ++;
-        } else {
-            req.session.countVisit = 1;
-        }
-    })
-});
+//     req.session.save(() => {
+//         if (req.session.countVisit) {
+//             req.session.countVisit ++;
+//         } else {
+//             req.session.countVisit = 1;
+//         }
+//     })
+// });
+module.exports = router;
