@@ -32,6 +32,10 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use('handlebars', exphbs.engine);
+
+app.set('view engine', 'handlebars');
+
+app.use(routes);
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
