@@ -83,6 +83,22 @@ const postToPreferences = async(e) => {
     }
 }
 
+const getAnimeList = async(e) => {
+    console.log(preferredGenre);
+
+    const response = await fetch('/api/genre/:genre', {
+        method: 'GET',
+        body: JSON.stringify({ genre: preferredGenre }),
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+        document.location.replace('/');
+    } else {
+        alert('failure to post');
+    }
+}
+
 
 function viewResults() {
     console.log("click works");
