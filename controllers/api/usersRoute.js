@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 // /api/users/
+
 router.post('/', async(req, res) => {
     console.log('HITTING API USERS POST', req);
     try {
@@ -21,28 +22,69 @@ router.post('/', async(req, res) => {
     }
 });
 
-router.get('/user/:id', async(req, res) => {
-    // try {
-    //     const userData = await User.findByPk(req.params.id, {})
-    // }
+router.post('/login', async (req, res) => {
+    try{
 
+        const userData = await User.findOne( { where: {email: req.body.email} } );
 
-    req.session.save(() => {
-        if (req.session.countVisit) {
-            req.session.countVisit++;
-        } else {
-            req.session.countVisit = 1;
+        if(!userData) {
+            res
+              .status(400)
+              .json({ message: 'Incorrect email or password, please try again'})
+              return;
         }
-    })
+        const validPassword = await userData.checkPassword(req.body.password);
+
+        if(!validPassword){
+            res
+            .status(400)
+              .json({ message: 'Incorrect email or password, please try again'})
+              return;
+        }
+
+        req.session.save(() => {
+            req.session.user_id = userData.id;
+            req.session.loggedIn = true;
+            
+            res.json({ user: userData, message: 'You are now logged in!' });
+          });
+    }  catch (err) {
+        res.status(400).json(err);
+    }
 });
+
+router.post('/logout', (req, res) => {
+    if (req.session.loggedIn) {
+      req.session.destroy(() => {
+        res.status(204).end();
+      });
+    } else {
+      res.status(404).end();
+    }
+  });
+
+// router.get('/user/:id', async(req, res) => {
+//     try {
+//         const userData = await User.findByPk(req.params.id, {})
+//     }
+
+
+//     req.session.save(() => {
+//         if (req.session.countVisit) {
+//             req.session.countVisit++;
+//         } else {
+//             req.session.countVisit = 1;
+//         }
+//     })
+// });
 
 
 
 // /api/users/7558
 // router.get('/user/:id', async (req, res) => {
-//     // try {
-//     //     const userData = await User.findByPk(req.params.id, {})
-//     // }
+//     try {
+//         const userData = await User.findByPk(req.params.id, {})
+//     }
 
 
 //     req.session.save(() => {
