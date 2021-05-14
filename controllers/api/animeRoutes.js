@@ -14,7 +14,9 @@ router.get('/', async(req, res) => {
 //GET a Single Anime
 router.get('/:id', async(req, res) => {
     try {
-        const animeData = await Anime.findbyPK(req.params.id);
+        const animeData = await Anime.findByPk(req.params.id);
+        // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); how to call a key without without having to use findbyPk
+        // console.log(animeData);
         if (!animeData) {
             res.status(404).json({ message: 'No Anime found!' });
             return;
