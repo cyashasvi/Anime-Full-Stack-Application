@@ -1,13 +1,10 @@
-const path = require('path');
+
 const express = require('express');
 const session = require('express-session');
 //const path = require('path');
 
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
-
-
-
 
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
@@ -32,6 +29,10 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use('handlebars', exphbs.engine);
+
+app.set('view engine', 'handlebars');
+
+app.use(routes);
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 

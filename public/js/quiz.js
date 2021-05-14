@@ -1,14 +1,9 @@
 let nextBtn = document.getElementById('nextBtn');
 let questionContainer = document.getElementById('question-container');
 let answerList = document.getElementById('list');
-
 let listItem = document.getElementById("classItem");
-
-
 let currentSelection = [];
 let genreAnswer = [];
-
-
 let quiz = {
     questions: [{
             question: "What type of anime do you enjoy watching?",
@@ -20,9 +15,6 @@ let quiz = {
         },
     ],
 }
-
-
-
 let i = 0;
 optionsArray = quiz.questions[i].options;
 questionsArray = quiz.questions[i].question;
@@ -38,34 +30,22 @@ function renderQuestion() {
 }
 
 function addListItem(item) {
-    a.innerHTML += `<li class="classItem" onclick="selectTest('${item}')">${item}</li>`;
-
-
+    a.innerHTML += `<li class="classItem" value="${item}" onclick="selectTest('${item}')">${item}</li>`;
 }
-
-
-
-
-
-// function selectChoices() {
-//     document.querySelector('#list')
-//         .addEventListener('click', event => {
-//             let target = event.target;
-//             target.setAttribute("style", "background-color: lightblue");
-//             if (target.matches('li')) {
-//                 let value = target.innerHTML
-//                 console.log(value);
-//             }
-//         });
-
-// };
 
 function selectTest(value) {
     console.log(value);
     if (currentSelection.includes(value) === false) {
         currentSelection.push(value)
-
     }
+    let listItems = document.getElementsByClassName("classItem");
+    let thisItem;
+    Object.values(listItems).forEach(item => {
+        if (item.getAttribute("value") == value) {
+            thisItem = item;
+        }
+    });
+    thisItem.setAttribute("style", "background-color: lightblue");
 }
 
 function submitTest() {
@@ -83,6 +63,4 @@ function submitTest() {
 function endQuiz() {
     document.getElementById("quiz-box").innerHTML = "<h3>" + genreAnswer + "</h3>"
 }
-
-console.log(quiz.questions.length);
 renderQuestion();
