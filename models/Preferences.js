@@ -18,7 +18,7 @@ Preferences.init({
 
     genre_id: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
 
         references: {
             model: 'User',

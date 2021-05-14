@@ -2,7 +2,7 @@ const User = require('./User');
 const Anime = require('./Anime');
 const Preferences = require('./Preferences')
 
-// User.hasMany(Project, {
+// User.hasMany(Anime, {
 //   foreignKey: 'user_id',
 //   onDelete: 'CASCADE'
 // });
