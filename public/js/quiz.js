@@ -7,11 +7,11 @@ let currentSelection = [];
 let preferredGenre = [];
 let quiz = {
     questions: [{
-            question: "What type of anime do you enjoy watching?",
+            question: "What type of anime do you enjoy watching? (choose one)",
             options: ["Shounen", "Shoujo"],
         },
         {
-            question: "What is your preferred anime genre?",
+            question: "What is your preferred anime genre? (can choose multiple)",
             options: ["Action", "Horror", "Fantasy", "Comedy", "Drama", "Psychological", "Romance", "Mystery"],
         },
     ],
@@ -46,7 +46,7 @@ function selectTest(value) {
             thisItem = item;
         }
     });
-    thisItem.setAttribute("style", "background-color: lightblue");
+    thisItem.setAttribute("style", "background-color: rgb(201, 218, 248)");
 }
 
 function submitTest() {
@@ -63,7 +63,7 @@ function submitTest() {
 
 function endQuiz() {
     document.getElementById("quiz-box").innerHTML = "<h3>" + preferredGenre.join(' ') + "</h3>" +
-        "<button class='p-2 rounded text-white bg-blue-400 w-24 my-2' id='confirmBtn' type='button' onclick='viewResults()'>" + "Confirm" + "</button>"
+        "<button class='p-2 rounded text-white bg-indigo-800 w-24 my-2' id='confirmBtn' type='button' onclick='viewResults()'>" + "Confirm" + "</button>"
 
 }
 
@@ -77,18 +77,20 @@ const postToPreferences = async(e) => {
     });
 
     if (response.ok) {
-        document.location.replace('/');
+        console.log("OK")
     } else {
         alert('failure to post');
     }
+
 }
 
 const getAnimeList = async(e) => {
     console.log(preferredGenre);
 
     const response = await fetch('/api/genre/:genre', {
+
         method: 'GET',
-        body: JSON.stringify({ genre: preferredGenre }),
+        body: JSON.stringify({ preferredGenre }),
         headers: { 'Content-Type': 'application/json' },
     });
 
@@ -100,9 +102,12 @@ const getAnimeList = async(e) => {
 }
 
 
-function viewResults() {
+function viewResults(e) {
+
     console.log("click works");
     postToPreferences();
+
+    getAnimeList();
 
 }
 
