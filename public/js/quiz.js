@@ -119,7 +119,7 @@ const getAnimeList = async(e) => {
 
             for (let i = 0; i < data.length; i++) {
                 const name = data[i].name
-                const item = $(`<div class="animeName" id="${data[i].name}"> ${data[i].name } </div>`)
+                const item = $(`<div class="animeName cursor-pointer" id="${data[i].name}" onclick="window.open('http://google.com/search?q=Where+to+watch+${data[i].name}+anime','_blank')"> ${data[i].name } </div>`)
                 $(genreCard).append(item)
             }
             console.log(data) // array of anime per genre 
@@ -155,9 +155,8 @@ function clearQuixBox() {
     gen.html("");
 }
 
-function whereToWatch() {
 
-}
+
 
 
 renderQuestion();
