@@ -2,15 +2,17 @@ let nextBtn = document.getElementById('nextBtn');
 let questionContainer = document.getElementById('question-container');
 let answerList = document.getElementById('list');
 let listItem = document.getElementById("classItem");
+const confirmBtn = document.getElementById("confirmBtn");
+
 let currentSelection = [];
-let genreAnswer = [];
+let preferredGenre = [];
 let quiz = {
     questions: [{
-            question: "What type of anime do you enjoy watching?",
+            question: "What type of anime do you enjoy watching? (choose one)",
             options: ["Shounen", "Shoujo"],
         },
         {
-            question: "What is your preferred anime genre?",
+            question: "What is your preferred anime genre? (can choose multiple)",
             options: ["Action", "Horror", "Fantasy", "Comedy", "Drama", "Psychological", "Romance", "Mystery"],
         },
     ],
@@ -45,22 +47,108 @@ function selectTest(value) {
             thisItem = item;
         }
     });
-    thisItem.setAttribute("style", "background-color: lightblue");
+    thisItem.setAttribute("style", "background-color: rgb(201, 218, 248)");
 }
 
 function submitTest() {
-    genreAnswer = genreAnswer.concat(currentSelection)
+    preferredGenre = preferredGenre.concat(currentSelection)
     currentSelection = [];
     if (i === quiz.questions.length - 1) {
         endQuiz();
     } else {
         i++;
-        console.log(genreAnswer);
+        console.log(preferredGenre);
         renderQuestion();
     }
 }
 
 function endQuiz() {
-    document.getElementById("quiz-box").innerHTML = "<h3>" + genreAnswer + "</h3>"
+    document.getElementById("quiz-box").innerHTML = "<h3>" + preferredGenre.join(' ') + "</h3>" +
+        "<button class='p-2 rounded text-white bg-indigo-800 w-24 my-2' id='confirmBtn' type='button' onclick='viewResults()'>" + "Confirm" + "</button>"
+
 }
+
+const postToPreferences = async(e) => {
+    console.log(preferredGenre);
+
+    const response = await fetch('/api/preferences', {
+        method: 'POST',
+        body: JSON.stringify({ preferredGenre }),
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+        console.log("OK")
+    } else {
+        alert('failure to post');
+    }
+
+}
+
+const getAnimeList = async(e) => {
+
+    const prefereces = await fetch('/api/preferences').then(response => response.json())
+    const genres = prefereces.preferredGenre.split(',')
+    console.log("==> ", genres)
+
+    const quizBox = $("#quiz-box")
+    const grid = $(`<div id="genre-grid"> </div>`)
+    $(quizBox).append(grid)
+    const g = $("#genre-grid")
+
+    // create a grid of size 4 x4 
+    // ==> row with 4 columns (flexed so it is mobile friendly)
+    // ==> just a div with the appropiate css properties 
+    // ==> per genre, create a "card"
+    // ==> in that card put the animes in there
+    // ==> once you are 
+
+    genres.map(genre => {
+        // returns 10 anims per genre 
+        fetch('/api/anime/genre/' + genre).then(r => r.json()).then(data => {
+            const column = $(`<div id="${genre}-card">
+                <h1> ${genre} </h1>
+                    <div class="divider" />
+                    <div id="animes-${genre}">
+                    </div>
+             </div>`)
+            $(g).append(column)
+
+            const genreCard = $(`#animes-${genre}`)
+
+            for (let i = 0; i < data.length; i++) {
+                const name = data[i].name
+                const item = $(`<div id="${data[i].name}"> ${data[i].name } </div>`)
+                $(genreCard).append(item)
+            }
+            console.log(data) // array of anime per genre 
+        })
+    })
+
+    // const response = await fetch('/api/genre/:genre', {
+
+    //     method: 'GET',
+    //     body: JSON.stringify({ preferredGenre }),
+    //     headers: { 'Content-Type': 'application/json' },
+    // });
+
+    // if (response.ok) {
+    //     document.location.replace('/');
+    // } else {
+    //     alert('failure to post');
+    // }
+}
+
+
+function viewResults(e) {
+
+    console.log("click works");
+    postToPreferences();
+
+    getAnimeList();
+
+}
+
+
+
 renderQuestion();

@@ -1,4 +1,3 @@
-
 const express = require('express');
 const session = require('express-session');
 //const path = require('path');
@@ -16,8 +15,8 @@ const PORT = process.env.PORT || 3001;
 const sess = {
     secret: 'Anime_secret',
     cookie: {},
-    resave: false,
-    saveUninitialized: true,
+    resave: true,
+    saveUninitialized: false,
     store: new SequelizeStore({
         db: sequelize
     })
@@ -37,7 +36,6 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
 app.use(routes);
-
 
 sequelize.sync({ force: false }).then(() => {
     app.listen(PORT, () => console.log('Now listening'));
