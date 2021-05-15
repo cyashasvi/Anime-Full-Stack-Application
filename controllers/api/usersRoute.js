@@ -22,53 +22,51 @@ router.post('/', async(req, res) => {
     }
 });
 
-router.post('/login', async (req, res) => {
-    try{
+router.post('/login', async(req, res) => {
+    try {
 
-        const userData = await User.findOne( { where: {email: req.body.email} } );
+        const userData = await User.findOne({ where: { email: req.body.email } });
 
-        if(!userData) {
+        if (!userData) {
             res
-              .status(400)
-              .json({ message: 'Incorrect email or password, please try again'})
-              return;
+                .status(400)
+                .json({ message: 'Incorrect email or password, please try again' })
+            return;
         }
         const validPassword = await userData.checkPassword(req.body.password);
 
-        if(!validPassword){
+        if (!validPassword) {
             res
-            .status(400)
-              .json({ message: 'Incorrect email or password, please try again'})
-              return;
+                .status(400)
+                .json({ message: 'Incorrect email or password, please try again' })
+            return;
         }
 
         req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.loggedIn = true;
-            
+
             res.json({ user: userData, message: 'You are now logged in!' });
-          });
-    }  catch (err) {
+        });
+    } catch (err) {
         res.status(400).json(err);
     }
 });
 
 router.post('/logout', (req, res) => {
     if (req.session.loggedIn) {
-      req.session.destroy(() => {
-        res.status(204).end();
-      });
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
     } else {
-      res.status(404).end();
+        res.status(404).end();
     }
-  });
+});
 
 // router.get('/user/:id', async(req, res) => {
 //     try {
 //         const userData = await User.findByPk(req.params.id, {})
 //     }
-
-
 //     req.session.save(() => {
 //         if (req.session.countVisit) {
 //             req.session.countVisit++;

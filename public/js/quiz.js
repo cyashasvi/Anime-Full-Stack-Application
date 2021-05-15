@@ -2,15 +2,16 @@ let nextBtn = document.getElementById('nextBtn');
 let questionContainer = document.getElementById('question-container');
 let answerList = document.getElementById('list');
 let listItem = document.getElementById("classItem");
+const confirmBtn = document.getElementById("confirmBtn");
 let currentSelection = [];
-let genreAnswer = [];
+let preferredGenre = [];
 let quiz = {
     questions: [{
-            question: "What type of anime do you enjoy watching?",
+            question: "What type of anime do you enjoy watching? (choose one)",
             options: ["Shounen", "Shoujo"],
         },
         {
-            question: "What is your preferred anime genre?",
+            question: "What is your preferred anime genre? (can choose multiple)",
             options: ["Action", "Horror", "Fantasy", "Comedy", "Drama", "Psychological", "Romance", "Mystery"],
         },
     ],
@@ -45,22 +46,71 @@ function selectTest(value) {
             thisItem = item;
         }
     });
-    thisItem.setAttribute("style", "background-color: lightblue");
+    thisItem.setAttribute("style", "background-color: rgb(201, 218, 248)");
 }
 
 function submitTest() {
-    genreAnswer = genreAnswer.concat(currentSelection)
+    preferredGenre = preferredGenre.concat(currentSelection)
     currentSelection = [];
     if (i === quiz.questions.length - 1) {
         endQuiz();
     } else {
         i++;
-        console.log(genreAnswer);
+        console.log(preferredGenre);
         renderQuestion();
     }
 }
 
 function endQuiz() {
-    document.getElementById("quiz-box").innerHTML = "<h3>" + genreAnswer + "</h3>"
+    document.getElementById("quiz-box").innerHTML = "<h3>" + preferredGenre.join(' ') + "</h3>" +
+        "<button class='p-2 rounded text-white bg-indigo-800 w-24 my-2' id='confirmBtn' type='button' onclick='viewResults()'>" + "Confirm" + "</button>"
+
 }
+
+const postToPreferences = async(e) => {
+    console.log(preferredGenre);
+
+    const response = await fetch('/api/preferences', {
+        method: 'POST',
+        body: JSON.stringify({ preferredGenre }),
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+        console.log("OK")
+    } else {
+        alert('failure to post');
+    }
+
+}
+
+const getAnimeList = async(e) => {
+    console.log(preferredGenre);
+
+    const response = await fetch('/api/genre/:genre', {
+
+        method: 'GET',
+        body: JSON.stringify({ preferredGenre }),
+        headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+        document.location.replace('/');
+    } else {
+        alert('failure to post');
+    }
+}
+
+
+function viewResults(e) {
+
+    console.log("click works");
+    postToPreferences();
+
+    getAnimeList();
+
+}
+
+
+
 renderQuestion();

@@ -2,18 +2,18 @@ const router = require('express').Router();
 const { Preferences } = require('../../models');
 
 
-router.get('/:id', async (req, res) => {
-   try {
+router.get('/:id', async(req, res) => {
+    try {
         const prefData = await Preferences.findByPk(req.params.id);
         if (!prefData) {
-            res.status(404).json({message: 'No Preferences found!'});
+            res.status(404).json({ message: 'No Preferences found!' });
             return;
         }
-    res.status(200).json(prefData);
+        res.status(200).json(prefData);
     } catch (err) {
         res.status(500).json(err);
-    }  
-    });
+    }
+});
 
 
 
@@ -81,6 +81,26 @@ router.get('/preferences/:id', async(req, res) => {
         res.status(500).json(err);
     }
 });
+
+
+router.post('/', async(req, res) => {
+    const data = req.body.preferredGenre.join();
+
+    const obj = {
+        preferredGenre: data,
+        user_id: 1
+
+    }
+    console.log(obj)
+    try {
+        const prefData = await Preferences.create(obj);
+        console.log(prefData);
+        res.status(200).json(prefData);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
 
 
 

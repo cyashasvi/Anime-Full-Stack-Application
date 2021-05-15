@@ -13,26 +13,28 @@
   <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
   <link href="/css/quiz.css" type="text/css" rel="stylesheet" media="screen,projection" />
   <link href="/css/styles.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
   <nav class="black lighten-1" role="navigation">
     <div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">Anime Recommender</a>
        {{#if loggedIn}}
-             <ul class="right hide-on-med-and-down">
-        <li><a class="waves-effect grey btn-large" id="logout">Logout</a></li>
+             <ul class="right hide-on-med-and-down my-1">
+        <li><a class="waves-effect btn-large rounded" id="logout">Logout</a></li>
         </div></li>
       </ul>
 
       {{else}}
       <ul class="right hide-on-med-and-down">
-    <form class="form login-form">
-      <li>
+    <form class="form login-form w-38">
+      <li class="w-36">
         <div class="input-field col s3">
         <label for="email-login">email:</label>
-        <input class="form-input" type="text" id="email-login" />
+        <input class="form-input rounded" type="text" id="email-login" />
         </div>
         </li>
-        <li>
+        <li class="mx-5 w-36">
         <div class="input-field col s3">
         <label for="password-login">password:</label>
         <input class="form-input" type="password" id="password-login" />
@@ -40,7 +42,7 @@
         </li>
         <li>
         <div class="input-field col s3">
-        <button class="btn btn-primary" type="submit">login</button>
+        <button class="btn btn-primary rounded" type="submit">login</button>
         </div>
         </li>
         </form>

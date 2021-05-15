@@ -1,6 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+:root {
+    font-family: 'Amatic SC', cursive;
+}
+
 
 /* Custom Stylesheet */
 
@@ -18,4 +22,52 @@
 
 .icon-block .material-icons {
     font-size: inherit;
+}
+
+nav {
+    background-image: url(../images/hero-img2.png);
+    background-repeat: no-repeat;
+    background-size: 1450px 300px;
+    height: 200px;
+    font-family: 'Amatic SC', cursive;
+}
+
+a.brand-logo {
+    margin-top: 150px;
+    margin-left: 415px;
+    font-size: 70px;
+    background-color: rgb(201, 218, 248);
+    border-radius: 5px;
+    color: rgb(32, 32, 124);
+    padding: 10px;
+}
+
+.login-card {
+    padding: 2px;
+    width: 33%;
+}
+
+.page-title {
+    font-family: 'Amatic SC', cursive;
+    font-size: 24px;
+}
+
+.btn-large {
+    background-color: rgb(32, 32, 124);
+}
+
+.login-form {
+    font-size: large;
+}
+
+label {
+    font-size: large;
+}
+
+.btn {
+    background-color: rgb(32, 32, 124);
+}
+
+.question-container {
+    background-color: rgb(32, 32, 124);
 }

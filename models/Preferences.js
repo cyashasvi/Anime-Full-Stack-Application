@@ -16,7 +16,7 @@ Preferences.init({
         allowNull: true,
     },
 
-    genre_id: {
+    user_id: {
         type: DataTypes.INTEGER,
         allowNull: true,
 
