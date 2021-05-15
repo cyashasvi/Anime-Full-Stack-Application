@@ -32,14 +32,17 @@ router.get('/:id', async(req, res) => {
 // Get Anime by Genre
 router.get('/genre/:genre', async(req, res) => {
 
+
+
     try {
 
         const animeData = await Anime.findAll({
             where: {
                 genre: {
                     [Op.regexp]: `${req.params.genre}`
-                }
-            }
+                },
+            },
+            limit: 10
         });
 
         // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); how to call a key without without having to use findbyPk

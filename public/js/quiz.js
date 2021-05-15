@@ -3,6 +3,7 @@ let questionContainer = document.getElementById('question-container');
 let answerList = document.getElementById('list');
 let listItem = document.getElementById("classItem");
 const confirmBtn = document.getElementById("confirmBtn");
+
 let currentSelection = [];
 let preferredGenre = [];
 let quiz = {
@@ -85,20 +86,57 @@ const postToPreferences = async(e) => {
 }
 
 const getAnimeList = async(e) => {
-    console.log(preferredGenre);
 
-    const response = await fetch('/api/genre/:genre', {
+    const prefereces = await fetch('/api/preferences').then(response => response.json())
+    const genres = prefereces.preferredGenre.split(',')
+    console.log("==> ", genres)
 
-        method: 'GET',
-        body: JSON.stringify({ preferredGenre }),
-        headers: { 'Content-Type': 'application/json' },
-    });
+    const quizBox = $("#quiz-box")
+    const grid = $(`<div id="genre-grid"> </div>`)
+    $(quizBox).append(grid)
+    const g = $("#genre-grid")
 
-    if (response.ok) {
-        document.location.replace('/');
-    } else {
-        alert('failure to post');
-    }
+    // create a grid of size 4 x4 
+    // ==> row with 4 columns (flexed so it is mobile friendly)
+    // ==> just a div with the appropiate css properties 
+    // ==> per genre, create a "card"
+    // ==> in that card put the animes in there
+    // ==> once you are 
+
+    genres.map(genre => {
+        // returns 10 anims per genre 
+        fetch('/api/anime/genre/' + genre).then(r => r.json()).then(data => {
+            const column = $(`<div id="${genre}-card">
+                <h1> ${genre} </h1>
+                    <div class="divider" />
+                    <div id="animes-${genre}">
+                    </div>
+             </div>`)
+            $(g).append(column)
+
+            const genreCard = $(`#animes-${genre}`)
+
+            for (let i = 0; i < data.length; i++) {
+                const name = data[i].name
+                const item = $(`<div id="${data[i].name}"> ${data[i].name } </div>`)
+                $(genreCard).append(item)
+            }
+            console.log(data) // array of anime per genre 
+        })
+    })
+
+    // const response = await fetch('/api/genre/:genre', {
+
+    //     method: 'GET',
+    //     body: JSON.stringify({ preferredGenre }),
+    //     headers: { 'Content-Type': 'application/json' },
+    // });
+
+    // if (response.ok) {
+    //     document.location.replace('/');
+    // } else {
+    //     alert('failure to post');
+    // }
 }
 
 
