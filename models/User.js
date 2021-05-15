@@ -36,8 +36,8 @@ User.init(
       },
     },
     onboarding: {
-      type: Boolean,
-      default: false
+      type: DataTypes.BOOLEAN,
+      default: true
     },
   },
   {

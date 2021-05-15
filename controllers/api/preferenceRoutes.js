@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Preferences } = require('../../models');
+const { Preferences, User } = require('../../models');
 
 // this root route will always refer to the curent user by session id 
 router.get('/', async(req, res) => {
@@ -71,11 +71,14 @@ router.post('/', async(req, res) => {
     const obj = {
         preferredGenre: data,
         user_id: req.session.user_id
-        
+
     }
     console.log(obj)
     try {
         const prefData = await Preferences.create({ user_id: obj.user_id, preferredGenre: obj.preferredGenre });
+        await User.update({ onboarding : false }, { where :  { id : req.session.user_id}})
+
+        req.session.onboarded = true 
         console.log(prefData);
         res.status(200).json(prefData);
     } catch (err) {
