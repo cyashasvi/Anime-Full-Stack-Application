@@ -35,6 +35,10 @@ User.init(
         len: [8],
       },
     },
+    onboarding: {
+      type: Boolean,
+      default: false
+    },
   },
   {
     hooks: {
