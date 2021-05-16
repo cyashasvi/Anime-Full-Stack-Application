@@ -1,32 +1,10 @@
 const router = require('express').Router();
-// const withAuth = require('../utils/auth');
-const {Anime} = require('../models')
-
-router.get('/', async (req, res) =>{
-    console.log(req.session)
-    
-    if(req.session.loggedIn){
-        if(req.session.onboarded) {
-            // can do some db queries with the user preferences that we have access to 
-            res.render("anime")
-        } else {
-            console.log("we are loggd in", req.session)
-            res.render('userpage', {
-                 loggedIn : req.session.loggedIn,
-                 animeData : [], 
-            });
-        }
-
-    } else {
-        console.log('we are there')
-        res.render('homepage');
-    } 
-});
-
+const {Anime} = require('../../models');
+//const withAuth = require('../utils/auth');
 
 router.get('/anime/:id', async (req, res) =>{    
     console.log(req.session)
-    console.log("we are logged in")
+    console.log("we are loggd in")
     if(req.session.loggedIn){
         try {
             const dbAnimeData = await Anime.findByPk(req.params.id, {
@@ -57,6 +35,5 @@ router.get('/anime/:id', async (req, res) =>{
         res.render('animepage');
     } 
 });
-
 
 module.exports = router;
