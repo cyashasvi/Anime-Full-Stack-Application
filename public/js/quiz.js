@@ -88,6 +88,10 @@ const postToPreferences = async(e) => {
 const getAnimeList = async(e) => {
 
     const prefereces = await fetch('/api/preferences').then(response => response.json())
+    if(!prefereces.preferredGenre) {
+        console.log("SOMETHING IS UP")
+        return 
+    }
     const genres = prefereces.preferredGenre.split(',')
     console.log("==> ", genres)
 

@@ -35,6 +35,10 @@ User.init(
         len: [8],
       },
     },
+    onboarding: {
+      type: DataTypes.BOOLEAN,
+      default: true
+    },
   },
   {
     hooks: {
