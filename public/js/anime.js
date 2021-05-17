@@ -31,3 +31,5 @@ const getPrefList = async() => {
         })
     })
 }
+
+getPrefList();

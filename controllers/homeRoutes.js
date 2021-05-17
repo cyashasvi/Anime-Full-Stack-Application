@@ -44,9 +44,10 @@ router.get('/anime/:id', async (req, res) =>{
             });
 
             const anime = dbAnimeData.get({plain: true});
+            console.log(anime);
             res.render('animepage', {
                 loggedIn: req.session.loggedIn,
-                dbAnimeData: anime,
+                 anime,
             });
         } catch(err) {
             res.status(500).json(err);
