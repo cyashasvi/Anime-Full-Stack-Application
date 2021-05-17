@@ -11,8 +11,7 @@ router.get('/', async (req, res) =>{
         } else {
             console.log("we are loggd in", req.session)
             res.render('userpage', {
-                 loggedIn : req.session.loggedIn,
-                 animeData : [], 
+                 loggedIn : req.session.loggedIn
             });
         }
 
