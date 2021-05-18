@@ -87,13 +87,13 @@ const postToPreferences = async(e) => {
 
 const getAnimeList = async(e) => {
 
-    const prefereces = await fetch('/api/preferences').then(response => response.json())
+    const preferences = await fetch('/api/preferences').then(response => response.json())
     console.log(preferences);
-    if(!prefereces) {
+    if(!preferences) {
         console.log("SOMETHING IS UP")
         return 
     }
-    const genres = prefereces.preferredGenre.split(',')
+    const genres = preferences.preferredGenre.split(',')
     console.log("==> ", genres)
 
     const quizBox = $("#quiz-box")

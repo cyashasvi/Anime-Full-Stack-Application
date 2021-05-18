@@ -1,19 +1,26 @@
 const router = require('express').Router();
 // const withAuth = require('../utils/auth');
-const {Anime} = require('../models')
+const {Anime, Preferences } = require('../models')
 
 router.get('/', async (req, res) =>{
+    
     console.log(req.session)
     
     if(req.session.loggedIn){
         if(req.session.onboarded) {
             // can do some db queries with the user preferences that we have access to 
-            res.render("anime")
+            res.render("anime", {
+                loggedIn : req.session.loggedIn,
+                animeData : [], 
+           });
         } else {
             console.log("we are loggd in", req.session)
+            const p = await Preferences.findOne({ where : { user_id : req.session.user_id  }})
+
             res.render('userpage', {
                  loggedIn : req.session.loggedIn,
                  animeData : [], 
+                 genres : p
             });
         }
 

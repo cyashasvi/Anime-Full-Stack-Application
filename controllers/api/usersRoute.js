@@ -24,12 +24,14 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
+
+
   try {
     const userData = await User.findOne( { 
         where: {
              email: req.body.email
              } ,
-       include: Preferences
+       //include: { model :  Preferences , as : 'preferences'}
      });
     const user = userData.get({ plain: true });
     console.log("user", user);
@@ -49,16 +51,30 @@ router.post("/login", async (req, res) => {
       return;
     }
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.loggedIn = true;
-      req.session.onboarded = true;
-    });
+	req.session.user_id = user.id 
+	req.session.loggedIn = true 
+	req.session.onboarded = true 
+
+	console.log(user.onboarding)
+
+	if(user.onboarding) {
+		return res.render("userpage", { loggedIn : true })
+	} else {
+		const p = await Preferences.findOne({ where : { user_id : user.id  }})
+		return res.render("anime", { genres : p, loggedIn : true })
+	}
+
+	return res.render("userpage")
+	return res.json({ hello  : 'world'})
+
     if (user.onboarding) {
         // res.json(user.Preference.preferredGenre)
-        const genres = user.Preference.preferredGenre;
-      res.render('anime',{ genres})
-    }
+		res.render('test')
+
+    } else {
+		const genres = user.Preference.preferredGenre;
+		res.render('anime',{ genres})
+	}
     // res.json({ user: userData, message: 'You are now logged in!' });
   } catch (err) {
     res.status(400).json(err);
