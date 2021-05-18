@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Preferences } = require('../../models');
+const { Preferences, User } = require('../../models');
 
 // this root route will always refer to the curent user by session id 
 router.get('/', async(req, res) => {
@@ -30,41 +30,6 @@ router.get('/:id', async(req, res) => {
         res.status(500).json(err);
     }
 });
-
-
-
-//     try {
-//          const prefData = await Preferences.findByPk(req.params.id, {
-//              include: [
-//                  {
-//                  model: Preferences,
-//                  attributes: [
-//                      'id',
-//                      'preferredGenre',
-//                      'genre_id',
-//                  ],
-//                  },
-//                 ],
-//          });
-
-//          const preferences = prefData.get({plain: true});
-//          res.render('preferences', {
-//              preferences,
-//              countVisit: req.session.countVisit,
-//          });
-
-//         req.session.save(() => {
-//             if (req.session.countVisit) {
-//                 req.session.countVisit ++;
-//             } else {
-//                 req.session.countVisit = 1;
-//         };
-//     });
-// } catch (err) {
-//     console.log(err);
-//     res.status(500).json(err);
-// }
-// });
 
 router.get('/preferences/:id', async(req, res) => {
     try {
@@ -111,6 +76,9 @@ router.post('/', async(req, res) => {
     console.log(obj)
     try {
         const prefData = await Preferences.create({ user_id: obj.user_id, preferredGenre: obj.preferredGenre });
+        await User.update({ onboarding : false }, { where :  { id : req.session.user_id}})
+
+        req.session.onboarded = true 
         console.log(prefData);
         res.status(200).json(prefData);
     } catch (err) {

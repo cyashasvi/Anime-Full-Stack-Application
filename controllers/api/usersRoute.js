@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User } = require('../../models');
+const { sequelize } = require('../../models/User');
 // /api/users/
 
 router.post('/', async(req, res) => {
@@ -46,9 +47,18 @@ router.post('/login', async(req, res) => {
         req.session.save(() => {
             req.session.user_id = userData.id;
             req.session.loggedIn = true;
-
+            req.session.onboarded = !userData.onboarding
             res.json({ user: userData, message: 'You are now logged in!' });
         });
+        // if user has been onboarded, get preferences data from the user, then render the page to show the anime, else, render quiz page
+        // happens after the user logs in if(onboarded) 
+        // find user by primary key and send anime data to the preferences page
+         if (onboarded) {
+            res.render('anime');
+        } else {
+            res.render('main');
+        }
+        // 
     } catch (err) {
         res.status(400).json(err);
     }
