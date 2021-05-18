@@ -18,9 +18,11 @@ router.get('/', async (req, res) =>{
             const p = await Preferences.findOne({ where : { user_id : req.session.user_id  }})
 
             res.render('userpage', {
+
                  loggedIn : req.session.loggedIn,
                  animeData : [], 
                  genres : p
+
             });
         }
 
