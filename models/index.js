@@ -7,8 +7,11 @@ const Preferences = require('./Preferences')
 //   onDelete: 'CASCADE'
 // });
 
-// Project.belongsTo(User, {
-//   foreignKey: 'user_id'
-// });
+User.hasOne(Preferences, {
+    foreignKey: 'user_id'
+});
+Preferences.belongsTo(User, {
+  foreignKey: 'user_id'
+});
 
 module.exports = { User, Anime, Preferences };

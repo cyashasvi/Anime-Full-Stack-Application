@@ -3,7 +3,6 @@ let questionContainer = document.getElementById('question-container');
 let answerList = document.getElementById('list');
 let listItem = document.getElementById("classItem");
 const confirmBtn = document.getElementById("confirmBtn");
-
 let currentSelection = [];
 let preferredGenre = [];
 let quiz = {
@@ -88,10 +87,9 @@ const postToPreferences = async(e) => {
 const getAnimeList = async(e) => {
 
     const prefereces = await fetch('/api/preferences').then(response => response.json())
-    console.log(preferences);
-    if(!prefereces) {
+    if (!prefereces.preferredGenre) {
         console.log("SOMETHING IS UP")
-        return 
+        return
     }
     const genres = prefereces.preferredGenre.split(',')
     console.log("==> ", genres)

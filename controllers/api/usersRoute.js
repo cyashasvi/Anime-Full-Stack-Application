@@ -1,21 +1,20 @@
-const router = require('express').Router();
-const { User } = require('../../models');
-const { sequelize } = require('../../models/User');
+const router = require("express").Router();
+const { User, Preferences } = require("../../models");
 // /api/users/
 
-router.post('/', async(req, res) => {
-    console.log('HITTING API USERS POST', req);
+router.post("/", async(req, res) => {
+    console.log("HITTING API USERS POST", req);
     try {
         const dbUserData = await User.create({
             username: req.body.username,
             email: req.body.email,
             password: req.body.password,
         });
-        console.log(dbUserData)
+        console.log(dbUserData);
 
         req.session.save(() => {
             req.session.loggedIn = true;
-            req.session.user_id = dbUserData.id
+            req.session.user_id = dbUserData.id;
             res.status(200).json(dbUserData);
         });
     } catch (err) {
@@ -24,15 +23,23 @@ router.post('/', async(req, res) => {
     }
 });
 
-router.post('/login', async(req, res) => {
+router.post("/login", async(req, res) => {
+
+
     try {
-
-        const userData = await User.findOne({ where: { email: req.body.email } });
-
+        const userData = await User.findOne({
+            where: {
+                email: req.body.email
+            },
+            //include: { model :  Preferences , as : 'preferences'}
+        });
+        const user = userData.get({ plain: true });
+        console.log("user", user);
+        // console.log("userData", userData);
         if (!userData) {
             res
                 .status(400)
-                .json({ message: 'Incorrect email or password, please try again' })
+                .json({ message: "Incorrect email or password, please try again" });
             return;
         }
         const validPassword = await userData.checkPassword(req.body.password);
@@ -40,31 +47,41 @@ router.post('/login', async(req, res) => {
         if (!validPassword) {
             res
                 .status(400)
-                .json({ message: 'Incorrect email or password, please try again' })
+                .json({ message: "Incorrect email or password, please try again" });
             return;
         }
 
-        req.session.save(() => {
-            req.session.user_id = userData.id;
-            req.session.loggedIn = true;
-            req.session.onboarded = !userData.onboarding
-            res.json({ user: userData, message: 'You are now logged in!' });
-        });
-        // if user has been onboarded, get preferences data from the user, then render the page to show the anime, else, render quiz page
-        // happens after the user logs in if(onboarded) 
-        // find user by primary key and send anime data to the preferences page
-         if (onboarded) {
-            res.render('anime');
+        req.session.user_id = user.id
+        req.session.loggedIn = true
+        req.session.onboarded = true
+
+        console.log(user.onboarding)
+
+        if (user.onboarding) {
+            return res.render("userpage", { loggedIn: true })
         } else {
-            res.render('main');
+            const p = await Preferences.findOne({ where: { user_id: user.id } })
+            return res.render("anime", { genres: p, loggedIn: true })
         }
-        // 
+
+        return res.render("userpage")
+        return res.json({ hello: 'world' })
+
+        if (user.onboarding) {
+            // res.json(user.Preference.preferredGenre)
+            res.render('test')
+
+        } else {
+            const genres = user.Preference.preferredGenre;
+            res.render('anime', { genres })
+        }
+        // res.json({ user: userData, message: 'You are now logged in!' });
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-router.delete('/logout', (req, res) => {
+router.delete("/logout", (req, res) => {
     if (req.session) {
         req.session.destroy(() => {
             res.status(204).end();
@@ -87,14 +104,11 @@ router.delete('/logout', (req, res) => {
 //     })
 // });
 
-
-
 // /api/users/7558
 // router.get('/user/:id', async (req, res) => {
 //     try {
 //         const userData = await User.findByPk(req.params.id, {})
 //     }
-
 
 //     req.session.save(() => {
 //         if (req.session.countVisit) {
