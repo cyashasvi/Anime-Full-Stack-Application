@@ -26,21 +26,12 @@
       </ul>
 
       {{else}}
-<<<<<<< HEAD
-      <ul class="right hide-on-med-and-down">
-    <form class="form login-form w-38 black-text">
-      <li class="w-36">
-        <div class="input-field col s3 ">
-        <label class="black-text" for="email-login">email:</label>
-        <input class="form-input rounded" type="text" id="email-login" />
-=======
       <ul class="right hide-on-med-and-down z-depth-4 black-text">
     <form class="form login-form w-38" action="/api/users/login" method="POST">
       <li class="w-36">
         <div class="input-field col s3">
         <label class="strong black-text" for="email-login">email:</label>
         <input class="form-input rounded" type="text" id="email-login" name="email" />
->>>>>>> bf4c8d60efa2728fb787922d1917e85774c496b0
         </div>
         </li>
         <li class="mx-5 w-36">
@@ -93,8 +84,8 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="/js/materialize.js"></script>
   <script src="/js/init.js"></script>
+   <script src="/js/login.js"></script>
   <script src="/js/quiz.js"></script>
-  <script src="/js/login.js"></script>
   {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
