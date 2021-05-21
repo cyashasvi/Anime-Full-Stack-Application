@@ -1,6 +1,7 @@
 {
     "name": "anime-full-stack-application",
     "version": "1.0.0",
+    "proxy": "https://anime-recommender-application.herokuapp.com",
     "description": "Functionality",
     "main": "server.js",
     "engines": {
