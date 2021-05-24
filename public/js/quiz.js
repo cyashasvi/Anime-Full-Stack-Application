@@ -86,22 +86,23 @@ const postToPreferences = async(e) => {
 }
 
 const getAnimeList = async(e) => {
-
-    const preferences = await fetch('/api/preferences').then(response => response.json())
-    console.log(preferences);
-    if(!preferences) {
-        console.log("SOMETHING IS UP")
-        return 
-    }
-    const genres = preferences.preferredGenre.split(',')
-    console.log("==> ", genres)
+    console.log("preferredGenre in getAnimeList: ", preferredGenre);
+    // const preferences = await fetch('/api/preferences').then(response => response.json())
+    // console.log(preferences);
+    // if(!preferences) {
+    //     console.log("SOMETHING IS UP")
+    //     return 
+    // }
+    // const genres = preferences.preferredGenre.split(',')
+    // console.log("==> ", genres)
 
     const quizBox = $("#quiz-box")
     const grid = $(`<div id="genre-grid"> </div>`)
     $(quizBox).append(grid)
     const g = $("#genre-grid")
 
-    clearQuixBox();
+    // clearQuixBox();
+    // ---------------------------------------------------------------------- //
     // create a grid of size 4 x4 
     // ==> row with 4 columns (flexed so it is mobile friendly)
     // ==> just a div with the appropiate css properties 
@@ -109,27 +110,51 @@ const getAnimeList = async(e) => {
     // ==> in that card put the animes in there
     // ==> once you are 
 
-    genres.map(genre => {
-        // returns 10 anims per genre 
-        fetch('/api/anime/genre/' + genre).then(r => r.json()).then(data => {
-            const column = $(`<div id="${genre}-card">
-                <h1 class="font-extrabold border-2 border-black bg-indigo-200"> ${genre} </h1>
+    // preferredGenres.map(genre => fetch)
+    preferredGenre.map(genre => fetch('/api/anime/genre/' + genre).then(r => r.json()).then(data => {
+        console.log("preferred genre fetch", data)
+        // render the returned data
+        const column = $(`<div id="${genre}-card">
+                <h1 class="font-extrabold border-2 border-black bg-indigo-200" data-genre="${genre}" > ${genre} </h1>
                     <div class="divider" />
                     <div id="animes-${genre}">
                     </div>
              </div>`)
             $(g).append(column)
-
             const genreCard = $(`#animes-${genre}`)
-
             for (let i = 0; i < data.length; i++) {
-                const name = data[i].name
                 const item = $(`<div class="animeName cursor-pointer" id="${data[i].name}" onclick="window.open('http://google.com/search?q=Where+to+watch+${data[i].name}+anime','_blank')"> ${data[i].name } </div>`)
                 $(genreCard).append(item)
             }
-            console.log(data) // array of anime per genre 
-        })
-    })
+    }));
+
+    // genres.map(genre => {
+    //     // returns 10 anims per genre 
+    //     fetch('/api/anime/genre/' + genre).then(r => r.json()).then(data => {
+    //         const column = $(`<div id="${genre}-card">
+    //             <h1 class="font-extrabold border-2 border-black bg-indigo-200" data-genre="${genre}" > ${genre} </h1>
+    //                 <div class="divider" />
+    //                 <div id="animes-${genre}">
+    //                 </div>
+    //          </div>`)
+    //         $(g).append(column)
+
+    //         $(`.bg-indigo-200`).click( (event) => {
+    //             console.log("clicked")
+    //            const genre = event.target.getAttribute("data-genre")
+    //            fetch(`/api/anime/single/${genre}`)
+    //         })
+
+    //         const genreCard = $(`#animes-${genre}`)
+
+    //         for (let i = 0; i < data.length; i++) {
+    //             const name = data[i].name
+    //             const item = $(`<div class="animeName cursor-pointer" id="${data[i].name}" onclick="window.open('http://google.com/search?q=Where+to+watch+${data[i].name}+anime','_blank')"> ${data[i].name } </div>`)
+    //             $(genreCard).append(item)
+    //         }
+    //         console.log(data) // array of anime per genre 
+    //     })
+    // })
 
     // const response = await fetch('/api/genre/:genre', {
 
