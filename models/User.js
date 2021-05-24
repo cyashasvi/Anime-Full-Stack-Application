@@ -37,7 +37,7 @@ User.init(
     },
     onboarding: {
       type: DataTypes.BOOLEAN,
-      default: true
+      defaultValue: 0
     },
   },
   {

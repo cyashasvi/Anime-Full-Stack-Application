@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const session = require("express-session")
 const { User, Preferences } = require("../../models");
 // /api/users/
 
@@ -16,6 +17,7 @@ router.post("/", async(req, res) => {
             req.session.loggedIn = true;
             req.session.user_id = dbUserData.id;
             res.status(200).json(dbUserData);
+            req.session.onboarded = false;
         });
     } catch (err) {
         console.log(err);
@@ -31,7 +33,7 @@ router.post("/login", async(req, res) => {
             where: {
                 email: req.body.email
             },
-            //include: { model :  Preferences , as : 'preferences'}
+            include: { model: Preferences }
         });
         const user = userData.get({ plain: true });
         console.log("user", user);
@@ -51,30 +53,37 @@ router.post("/login", async(req, res) => {
             return;
         }
 
-        req.session.user_id = user.id
-        req.session.loggedIn = true
-        req.session.onboarded = true
+
+        req.session.loggedIn = true;
+        req.session.user_id = userData.id;
+        res.status(200).json(userData);
+
+
 
         console.log(user.onboarding)
 
-        if (user.onboarding) {
-            return res.render("userpage", { loggedIn: true })
-        } else {
-            const p = await Preferences.findOne({ where: { user_id: user.id } })
-            return res.render("anime", { genres: p, loggedIn: true })
-        }
+        // if(!user.onboarding) {
+        // 	return res.render("userpage", { loggedIn : true })
+        // } else {
+        // 	const genres = user.Preference.preferredGenre.split(',');
 
-        return res.render("userpage")
-        return res.json({ hello: 'world' })
+        // 	console.log(genres);
+        // 	res.render('anime', {genres: genres})
+        // 	// const p = await Preferences.findOne({ where : { user_id : user.id  }})
+        // 	// return res.render("anime", { genres : p, loggedIn : true })
+        // }
 
-        if (user.onboarding) {
-            // res.json(user.Preference.preferredGenre)
-            res.render('test')
+        // return res.render("userpage")
+        // return res.json({ hello  : 'world'})
 
-        } else {
-            const genres = user.Preference.preferredGenre;
-            res.render('anime', { genres })
-        }
+        //   if (user.onboarding) {
+        //       // res.json(user.Preference.preferredGenre)
+        // 	res.render('test')
+
+        //   } else {
+        // 	const genres = user.Preference.preferredGenre;
+        // 	res.render('anime',{ genres})
+
         // res.json({ user: userData, message: 'You are now logged in!' });
     } catch (err) {
         res.status(400).json(err);

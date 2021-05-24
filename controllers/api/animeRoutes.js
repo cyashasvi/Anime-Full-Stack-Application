@@ -14,49 +14,89 @@ router.get('/', async(req, res) => {
 });
 
 //GET a Single Anime
-router.get('/:id', async(req, res) => {
+// router.get('/:id', async(req, res) => {
+//     try {
+//         const animeData = await Anime.findByPk(req.params.id);
+//         // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); how to call a key without without having to use findbyPk
+//         // console.log(animeData);
+//         if (!animeData) {
+//             res.status(404).json({ message: 'No Anime found!' });
+//             return;
+//         }
+//         res.status(200).json(animeData);
+//     } catch (err) {
+//         res.status(500).json(err);
+//     }
+// });
+
+// Get Anime by Genre
+router.get('/genre/:genre', async(req, res) => {
+//   var min = Math.ceil(1);
+//   var  max = Math.floor(50);
+//   var ranNum = Math.floor(Math.random() *(max-min) + min );
+ 
     try {
-        const animeData = await Anime.findByPk(req.params.id);
-        // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); how to call a key without without having to use findbyPk
-        // console.log(animeData);
+
+        const animeData = await Anime.findAll({
+            order: sequelize.random(),
+            limit: 5,
+            where: {
+                genre: {
+                    [Op.regexp]: `${req.params.genre}`
+                },
+            },
+            // offset: ranNum,
+         
+            
+            // limit: 10,
+        });
+
+        // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); //how to call a key without without having to use findbyPk
+        console.log(animeData);
         if (!animeData) {
             res.status(404).json({ message: 'No Anime found!' });
+            console.log(animeData);
             return;
+        }else{
+            // res.render('anime', {animeData})
         }
         res.status(200).json(animeData);
+        // res.render('anime', {animeData})
     } catch (err) {
         res.status(500).json(err);
     }
 });
 
-// Get Anime by Genre
-router.get('/genre/:genre', async(req, res) => {
+router.get('/single/:genre', async(req, res) => {
 
-
+// const animeD = await Anime.findAll();
+// res.json(animeD)
 
     try {
 
         const animeData = await Anime.findAll({
             where: {
                 genre: {
-                    [Op.regexp]: `${req.params.genre}`
+                    [Op.like]: `${req.params.genre}`
                 },
             },
             limit: 10
         });
 
-        // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); how to call a key without without having to use findbyPk
-        // console.log(animeData);
+        // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); //how to call a key without without having to use findbyPk
+        console.log(animeData);
         if (!animeData) {
             res.status(404).json({ message: 'No Anime found!' });
             console.log(animeData);
             return;
+        }else{
+            res.redirect('anime', {animeData})
         }
-        res.status(200).json(animeData);
+        // res.status(200).json(animeData);
+        // res.render('anime', {animeData})
     } catch (err) {
         res.status(500).json(err);
     }
 });
-
 
 module.exports = router;

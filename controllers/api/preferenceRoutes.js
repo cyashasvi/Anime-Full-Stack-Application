@@ -45,10 +45,10 @@ router.get('/preferences/:id', async(req, res) => {
         });
 
         const preferences = prefData.get({ plain: true });
-        res.render('preferences', {
-            preferences,
-            countVisit: req.session.countVisit,
-        });
+        // res.render('preferences', {
+        //     preferences,
+        //     countVisit: req.session.countVisit,
+        // });
 
         req.session.save(() => {
             if (req.session.countVisit) {
@@ -78,6 +78,7 @@ router.post('/', async(req, res) => {
         const prefData = await Preferences.create({ user_id: obj.user_id, preferredGenre: obj.preferredGenre });
         await User.update({ onboarding: true }, { where: { id: req.session.user_id } })
 
+        req.session.id = user_id;
         req.session.onboarded = true;
         console.log(prefData);
         res.status(200).json(prefData);
