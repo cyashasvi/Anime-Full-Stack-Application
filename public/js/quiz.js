@@ -13,7 +13,8 @@ let quiz = {
         },
         {
             question: "What is your preferred anime genre? (can choose multiple)",
-            options: ["Action", "Horror", "Fantasy", "Comedy", "Drama", "Psychological", "Romance", "Mystery"],
+            options: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Game", "Historical", "Horror", "Magic", "Military", "Mystery", 
+                      "Parody", "Psychological", "Romance", "School", "Supernatural"],
         },
     ],
 }
