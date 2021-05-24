@@ -12,8 +12,9 @@ let quiz = {
         },
         {
             question: "What is your preferred anime genre? (can choose multiple)",
-            options: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Game", "Historical", "Horror", "Magic", "Military", "Mystery", 
-                      "Parody", "Psychological", "Romance", "School", "Supernatural"],
+            options: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Game", "Historical", "Horror", "Magic", "Military", "Mystery",
+                "Parody", "Psychological", "Romance", "School", "Supernatural"
+            ],
         },
     ],
 }
@@ -86,16 +87,6 @@ const postToPreferences = async(e) => {
 }
 
 const getAnimeList = async(e) => {
-<<<<<<< HEAD
-
-    const prefereces = await fetch('/api/preferences').then(response => response.json())
-    if (!prefereces.preferredGenre) {
-        console.log("SOMETHING IS UP")
-        return
-    }
-    const genres = prefereces.preferredGenre.split(',')
-    console.log("==> ", genres)
-=======
     console.log("preferredGenre in getAnimeList: ", preferredGenre);
     // const preferences = await fetch('/api/preferences').then(response => response.json())
     // console.log(preferences);
@@ -105,7 +96,6 @@ const getAnimeList = async(e) => {
     // }
     // const genres = preferences.preferredGenre.split(',')
     // console.log("==> ", genres)
->>>>>>> 9adae500904837b5f6daea22d458751b766484c9
 
     const quizBox = $("#quiz-box")
     const grid = $(`<div id="genre-grid"> </div>`)
@@ -124,19 +114,19 @@ const getAnimeList = async(e) => {
     // preferredGenres.map(genre => fetch)
     preferredGenre.map(genre => fetch('/api/anime/genre/' + genre).then(r => r.json()).then(data => {
         console.log("preferred genre fetch", data)
-        // render the returned data
+            // render the returned data
         const column = $(`<div id="${genre}-card">
                 <h1 class="font-extrabold border-2 border-black bg-indigo-200" data-genre="${genre}" > ${genre} </h1>
                     <div class="divider" />
                     <div id="animes-${genre}">
                     </div>
              </div>`)
-            $(g).append(column)
-            const genreCard = $(`#animes-${genre}`)
-            for (let i = 0; i < data.length; i++) {
-                const item = $(`<div class="animeName cursor-pointer" id="${data[i].name}" onclick="window.open('http://google.com/search?q=Where+to+watch+${data[i].name}+anime','_blank')"> ${data[i].name } </div>`)
-                $(genreCard).append(item)
-            }
+        $(g).append(column)
+        const genreCard = $(`#animes-${genre}`)
+        for (let i = 0; i < data.length; i++) {
+            const item = $(`<div class="animeName cursor-pointer" id="${data[i].name}" onclick="window.open('http://google.com/search?q=Where+to+watch+${data[i].name}+anime','_blank')"> ${data[i].name } </div>`)
+            $(genreCard).append(item)
+        }
     }));
 
     // genres.map(genre => {
