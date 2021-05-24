@@ -59,15 +59,18 @@ function handleData(data) {
         // Grabs the HTML element and adds the title and image
         document.getElementById("anime-img").src = data.data.Media.coverImage.large
         document.getElementById("anime-title").innerHTML = animeTitle
+        document.getElementById("anime-img").onclick = () =>(window.open(`http://google.com/search?q=Where+to+watch+${animeTitle}+anime`)) 
     } catch (e) {
         // This runs if information missing or error
         document.getElementById("anime-img").src = "https://image.api.playstation.com/vulcan/img/rnd/202010/1520/EfaKUXGWULuDpnL0Ai0eujhs.png"
         document.getElementById("anime-title").innerHTML = "Attack on Titan"
+        document.getElementById("anime-img").onclick = () =>(window.open('http://google.com/search?q=Where+to+watch+Attack+On+Titan+anime'))
     }
 }
 // This runs if fetch results in a 404 / 400 error
 function handleError(error) {
     console.error(error);
-    document.getElementById("anime-img").src = "https://image.api.playstation.com/vulcan/img/rnd/202010/1520/EfaKUXGWULuDpnL0Ai0eujhs.png"
+    document.getElementById("anime-img").src = "https://image.api.playstation.com/vulcan/img/rnd/202010/1520/EfaKUXGWULuDpnL0Ai0eujhs.png" 
     document.getElementById("anime-title").innerHTML = "Attack on Titan"
+    document.getElementById("anime-img").onclick = () =>(window.open('http://google.com/search?q=Where+to+watch+Attack+On+Titan+anime'))
 }

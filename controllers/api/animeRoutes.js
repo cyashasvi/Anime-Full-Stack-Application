@@ -31,18 +31,24 @@ router.get('/', async(req, res) => {
 
 // Get Anime by Genre
 router.get('/genre/:genre', async(req, res) => {
-
-
-
+//   var min = Math.ceil(1);
+//   var  max = Math.floor(50);
+//   var ranNum = Math.floor(Math.random() *(max-min) + min );
+ 
     try {
 
         const animeData = await Anime.findAll({
+            order: sequelize.random(),
+            limit: 5,
             where: {
                 genre: {
                     [Op.regexp]: `${req.params.genre}`
                 },
             },
-            limit: 10
+            // offset: ranNum,
+         
+            
+            // limit: 10,
         });
 
         // const animeData = await Anime.findOne({where: { anime_id: req.params.id}}); //how to call a key without without having to use findbyPk
