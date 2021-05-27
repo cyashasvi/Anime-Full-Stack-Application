@@ -181,7 +181,7 @@ function viewResults(e) {
 
 }
 
-function clearQuixBox() {
+function clearQuizBox() {
     const gen = $("#genGenre");
     gen.html("");
 }
