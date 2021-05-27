@@ -76,10 +76,10 @@ router.post('/', async(req, res) => {
     console.log(obj)
     try {
         const prefData = await Preferences.create({ user_id: obj.user_id, preferredGenre: obj.preferredGenre });
-        await User.update({ onboarding : true }, { where :  { id : req.session.user_id}})
+        await User.update({ onboarding: true }, { where: { id: req.session.user_id } })
 
         req.session.id = user_id;
-        req.session.onboarded = true; 
+        req.session.onboarded = true;
         console.log(prefData);
         res.status(200).json(prefData);
     } catch (err) {

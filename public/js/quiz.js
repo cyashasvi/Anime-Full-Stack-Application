@@ -3,7 +3,6 @@ let questionContainer = document.getElementById('question-container');
 let answerList = document.getElementById('list');
 let listItem = document.getElementById("classItem");
 const confirmBtn = document.getElementById("confirmBtn");
-
 let currentSelection = [];
 let preferredGenre = [];
 let quiz = {
@@ -13,8 +12,9 @@ let quiz = {
         },
         {
             question: "What is your preferred anime genre? (can choose multiple)",
-            options: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Game", "Historical", "Horror", "Magic", "Military", "Mystery", 
-                      "Parody", "Psychological", "Romance", "School", "Supernatural"],
+            options: ["Action", "Adventure", "Comedy", "Drama", "Fantasy", "Game", "Historical", "Horror", "Magic", "Military", "Mystery",
+                "Parody", "Psychological", "Romance", "School", "Supernatural"
+            ],
         },
     ],
 }
@@ -114,19 +114,19 @@ const getAnimeList = async(e) => {
     // preferredGenres.map(genre => fetch)
     preferredGenre.map(genre => fetch('/api/anime/genre/' + genre).then(r => r.json()).then(data => {
         console.log("preferred genre fetch", data)
-        // render the returned data
+            // render the returned data
         const column = $(`<div id="${genre}-card">
                 <h1 class="font-extrabold border-2 border-black bg-indigo-200" data-genre="${genre}" > ${genre} </h1>
                     <div class="divider" />
                     <div id="animes-${genre}">
                     </div>
              </div>`)
-            $(g).append(column)
-            const genreCard = $(`#animes-${genre}`)
-            for (let i = 0; i < data.length; i++) {
-                const item = $(`<div class="animeName cursor-pointer" id="${data[i].name}" onclick="window.open('http://google.com/search?q=Where+to+watch+${data[i].name}+anime','_blank')"> ${data[i].name } </div>`)
-                $(genreCard).append(item)
-            }
+        $(g).append(column)
+        const genreCard = $(`#animes-${genre}`)
+        for (let i = 0; i < data.length; i++) {
+            const item = $(`<div class="animeName cursor-pointer" id="${data[i].name}" onclick="window.open('http://google.com/search?q=Where+to+watch+${data[i].name}+anime','_blank')"> ${data[i].name } </div>`)
+            $(genreCard).append(item)
+        }
     }));
 
     // genres.map(genre => {
@@ -181,7 +181,7 @@ function viewResults(e) {
 
 }
 
-function clearQuixBox() {
+function clearQuizBox() {
     const gen = $("#genGenre");
     gen.html("");
 }

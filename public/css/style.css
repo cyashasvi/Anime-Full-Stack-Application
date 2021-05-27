@@ -73,11 +73,13 @@ label {
     background-color: rgb(32, 32, 124);
 }
 
-
-@media screen and (max-width: 1234px){
-
-a.brand-logo{
-    display: none;
+.genreImage {
+    width: 100px;
+    height: 110px;
 }
+
+@media screen and (max-width: 1234px) {
+    a.brand-logo {
+        display: none;
+    }
 }
-    
